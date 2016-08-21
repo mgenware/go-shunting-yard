@@ -22,7 +22,7 @@ func init() {
 	priorities["/"] = 1
 	priorities["^"] = 2
 
-	// if not set, associativity will be false(left-associated)
+	// if not set, associativity will be false(left-associative)
 	associativities["^"] = true
 }
 
