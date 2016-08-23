@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	input := []string{"3", "+", "4", "*", "2", "/", "(", "1", "-", "5", ")", "^", "2", "^", "3"}
+	input := []string{"12", "+", "3", "*", "(", "4", "-", "54", ")", "^", "2", "-", "4", "/", "2", "*", "12"}
 	tokens, err := parse(input)
 	if err != nil {
 		panic(err)
@@ -13,4 +13,11 @@ func main() {
 	for _, token := range tokens {
 		fmt.Printf("%v(%v) ", token.Value, token.Type)
 	}
+	fmt.Println()
+
+	val, err := evaluate(tokens)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(val)
 }
