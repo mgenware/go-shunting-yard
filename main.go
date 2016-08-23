@@ -5,7 +5,9 @@ import (
 )
 
 func main() {
+	// expression
 	input := []string{"12", "+", "3", "*", "(", "4", "-", "54", ")", "^", "2", "-", "4", "/", "2", "*", "12"}
+	// expression to Reverse Polish notation (RPN) tokens
 	tokens, err := parse(input)
 	if err != nil {
 		panic(err)
@@ -15,6 +17,7 @@ func main() {
 	}
 	fmt.Println()
 
+	// evaluate tokens
 	val, err := evaluate(tokens)
 	if err != nil {
 		panic(err)
