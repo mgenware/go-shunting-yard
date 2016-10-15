@@ -1,4 +1,4 @@
-package main
+package shuntingYard
 
 import (
 	"errors"
@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func evaluate(tokens []*Token) (int, error) {
+func evaluate(tokens []*RPNToken) (int, error) {
 	if tokens == nil {
 		return 0, errors.New("tokens cannot be nil")
 	}
