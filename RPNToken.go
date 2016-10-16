@@ -20,7 +20,7 @@ func (token *RPNToken) IsOperand(val string) bool {
 
 // IsOperator returns whether a token is an operator with a specified value.
 func (token *RPNToken) IsOperator(val string) bool {
-	return token.Type == TokenTypeOperand && token.Value == val
+	return token.Type == TokenTypeOperator && token.Value == val
 }
 
 // GetDescription returns a string that describes the token.
