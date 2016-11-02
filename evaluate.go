@@ -6,7 +6,8 @@ import (
 	"strconv"
 )
 
-func evaluate(tokens []*RPNToken) (int, error) {
+// Evaluate evaluates a list of RPNTokens and returns calculated value.
+func Evaluate(tokens []*RPNToken) (int, error) {
 	if tokens == nil {
 		return 0, errors.New("tokens cannot be nil")
 	}
@@ -42,7 +43,7 @@ func evaluate(tokens []*RPNToken) (int, error) {
 	return stack[len(stack)-1], nil
 }
 
-// execute an operator
+// executes an operator
 func evaluateOperator(oper string, a, b int) (int, error) {
 	switch oper {
 	case "+":
