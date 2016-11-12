@@ -3,24 +3,39 @@ package shuntingYard
 import "fmt"
 
 const (
-	TokenTypeOperand  = 1
-	TokenTypeOperator = 2
+	RPNTokenTypeOperand  = 1
+	RPNTokenTypeOperator = 2
 )
 
 // RPNToken represents an abstract token object in RPN(Reverse Polish notation) which could either be an operator or operand.
 type RPNToken struct {
 	Type  int
-	Value string
+	Value interface{}
 }
 
-// IsOperand returns whether a token is an operand with a specified value.
-func (token *RPNToken) IsOperand(val string) bool {
-	return token.Type == TokenTypeOperand && token.Value == val
+// NewRPNOperandToken creates an instance of operand RPNToken with specified value.
+func NewRPNOperandToken(val int) *RPNToken {
+	return NewRPNToken(val, RPNTokenTypeOperand)
 }
 
-// IsOperator returns whether a token is an operator with a specified value.
+// NewRPNOperatorToken creates an instance of operator RPNToken with specified value.
+func NewRPNOperatorToken(val string) *RPNToken {
+	return NewRPNToken(val, RPNTokenTypeOperator)
+}
+
+// NewRPNToken creates an instance of RPNToken with specified value and type.
+func NewRPNToken(val interface{}, typ int) *RPNToken {
+	return &RPNToken{Value: val, Type: typ}
+}
+
+// IsOperand determines whether a token is an operand with a specified value.
+func (token *RPNToken) IsOperand(val int) bool {
+	return token.Type == RPNTokenTypeOperand && token.Value.(int) == val
+}
+
+// IsOperator determines whether a token is an operator with a specified value.
 func (token *RPNToken) IsOperator(val string) bool {
-	return token.Type == TokenTypeOperator && token.Value == val
+	return token.Type == RPNTokenTypeOperator && token.Value.(string) == val
 }
 
 // GetDescription returns a string that describes the token.

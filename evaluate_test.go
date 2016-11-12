@@ -3,13 +3,12 @@ package shuntingYard
 import "testing"
 
 func TestEvaluate(t *testing.T) {
-	tokens, err := Parse([]string{"1", "-", "32", "*", "3"})
-	if err != nil {
-		panic(err)
-	}
-
+	var tokens []*RPNToken
 	var expected, got int
-	expected = -95
+	var err error
+
+	tokens = []*RPNToken{NewRPNOperandToken(1), NewRPNOperandToken(32), NewRPNOperandToken(3), NewRPNOperatorToken("-"), NewRPNOperatorToken("*")}
+	expected = 29
 	got, err = Evaluate(tokens)
 	if err != nil {
 		panic(err)
@@ -18,7 +17,7 @@ func TestEvaluate(t *testing.T) {
 		t.Fatalf("Expected %v, Got %v.", expected, got)
 	}
 
-	tokens, err = Parse([]string{"1", "+", "2", "-", "3", "*", "4", "/", "5"})
+	tokens = []*RPNToken{NewRPNOperandToken(1), NewRPNOperandToken(2), NewRPNOperandToken(2), NewRPNOperatorToken("+"), NewRPNOperandToken(2), NewRPNOperandToken(4), NewRPNOperatorToken("*"), NewRPNOperatorToken("/"), NewRPNOperatorToken("-")}
 	if err != nil {
 		panic(err)
 	}

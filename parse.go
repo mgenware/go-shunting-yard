@@ -33,8 +33,9 @@ func Parse(tokens []string) ([]*RPNToken, error) {
 
 	var operators []string
 	for _, token := range tokens {
-		if isOperand(token) {
-			ret = append(ret, &RPNToken{Type: TokenTypeOperand, Value: token})
+		operandToken := tryGetOperand(token)
+		if operandToken != nil {
+			ret = append(ret, operandToken)
 		} else {
 			// check parentheses
 			if token == "(" {
@@ -50,7 +51,7 @@ func Parse(tokens []string) ([]*RPNToken, error) {
 						foundLeftParenthesis = true
 						break
 					} else {
-						ret = append(ret, &RPNToken{Type: TokenTypeOperator, Value: oper})
+						ret = append(ret, NewRPNOperatorToken(oper))
 					}
 				}
 				if !foundLeftParenthesis {
@@ -76,7 +77,7 @@ func Parse(tokens []string) ([]*RPNToken, error) {
 					if (rightAssociative && priority < prevPriority) || (!rightAssociative && priority <= prevPriority) {
 						// pop current operator
 						operators = operators[:len(operators)-1]
-						ret = append(ret, &RPNToken{Type: TokenTypeOperator, Value: top})
+						ret = append(ret, NewRPNOperatorToken(top))
 					} else {
 						break
 					}
@@ -96,13 +97,16 @@ func Parse(tokens []string) ([]*RPNToken, error) {
 		if operator == "(" {
 			return nil, errors.New("Mismatched parentheses found")
 		}
-		ret = append(ret, &RPNToken{Type: TokenTypeOperator, Value: operator})
+		ret = append(ret, NewRPNOperatorToken(operator))
 	}
 	return ret, nil
 }
 
-// isOperand determines whether a given string is an operand.
-func isOperand(str string) bool {
-	_, err := strconv.Atoi(str)
-	return err == nil
+// tryGetOperand determines whether a given string is an operand, if it is, an RPN operand token will be returned, otherwise nil.
+func tryGetOperand(str string) *RPNToken {
+	value, err := strconv.Atoi(str)
+	if err != nil {
+		return nil
+	}
+	return NewRPNOperandToken(value)
 }

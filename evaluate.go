@@ -3,7 +3,6 @@ package shuntingYard
 import (
 	"errors"
 	"math"
-	"strconv"
 )
 
 // Evaluate evaluates a list of RPNTokens and returns calculated value.
@@ -15,11 +14,8 @@ func Evaluate(tokens []*RPNToken) (int, error) {
 	var stack []int
 	for _, token := range tokens {
 		// push all operands to the stack
-		if token.Type == TokenTypeOperand {
-			val, err := strconv.Atoi(token.Value)
-			if err != nil {
-				return 0, err
-			}
+		if token.Type == RPNTokenTypeOperand {
+			val := token.Value.(int)
 			stack = append(stack, val)
 		} else {
 			// execute current operator
@@ -29,7 +25,7 @@ func Evaluate(tokens []*RPNToken) (int, error) {
 			// pop 2 elements
 			arg1, arg2 := stack[len(stack)-2], stack[len(stack)-1]
 			stack = stack[:len(stack)-2]
-			val, err := evaluateOperator(token.Value, arg1, arg2)
+			val, err := evaluateOperator(token.Value.(string), arg1, arg2)
 			if err != nil {
 				return 0, err
 			}
