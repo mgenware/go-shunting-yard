@@ -23,7 +23,6 @@ func init() {
 	priorities["^"] = 2
 
 	// if not set, associativity will be false(left-associative)
-	associativities["^"] = true
 }
 
 // Parse parses an array of token strings and returns an array of abstract tokens
