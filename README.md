@@ -1,4 +1,8 @@
 # go-shunting-yard
+
+[![Build Status](https://travis-ci.org/mgenware/go-shunting-yard.svg?branch=master)](http://travis-ci.org/mgenware/go-shunting-yard)
+
+
 A simple implementation of shunting-yard algorithm in Go(Golang).
 
 ## Installation
