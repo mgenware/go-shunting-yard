@@ -10,6 +10,18 @@ A simple implementation of shunting-yard algorithm in Go(Golang).
 go get github.com/mgenware/go-shunting-yard
 ```
 
+## Documentation
+[![GoDoc](https://godoc.org/github.com/mgenware/go-shunting-yard?status.svg)](http://godoc.org/github.com/mgenware/go-shunting-yard)
+
+## Supported Operators
+
+| Name | Description | Precedence | Associativity |
+|------|-------------|------------|---------------|
+| ^  | Exponentiation | 3 | Left-associative |
+| * /  | Multiplication, Division | 2 | Left-associative |
+| + -  | Addition, Subtraction    | 1 | Left-associative |
+
+
 ## Example
 ```go
 import (
